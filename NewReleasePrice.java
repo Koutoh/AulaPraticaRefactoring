@@ -9,11 +9,9 @@ public class NewReleasePrice extends Price {
         return daysRented * 3;
     }
 
+    // Sobrescrita da versão do método para o caso especial
     @Override
     public int getFrequentRenterPoints(int daysRented) {
-        if (daysRented > 1) {
-            return 2;  // New release movie earns 2 frequent renter points for more than 1 day rental
-        }
-        return 1;
+        return (daysRented > 1) ? 2 : 1;  // 2 pontos se o aluguel for maior que 1 dia
     }
 }
