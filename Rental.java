@@ -3,23 +3,23 @@ public class Rental {
    private int _daysRented;
 
    public Rental(Movie movie, int daysRented) {
-      _movie = movie;
-      _daysRented = daysRented;
+       _movie = movie;
+       _daysRented = daysRented;
    }
 
    public Movie getMovie() {
-      return _movie;
+       return _movie;
    }
 
    public int getDaysRented() {
-      return _daysRented;
+       return _daysRented;
    }
 
    public double getCharge() {
-      return _movie.getCharge(_daysRented);
+       return _movie.getCharge(_daysRented);
    }
 
    public int getFrequentRenterPoints() {
-      return _movie.getFrequentRenterPoints(_daysRented);
+       return _movie.getFrequentRenterPoints(_daysRented);
    }
 }
