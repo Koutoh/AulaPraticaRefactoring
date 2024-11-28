@@ -1,4 +1,5 @@
 public class Rental {
+
    private Movie _movie;
    private int _daysRented;
 
@@ -17,6 +18,8 @@ public class Rental {
 
    public double getCharge() {
       double thisAmount = 0;
+
+      // Determina o valor do aluguel para cada tipo de filme
       switch (getMovie().getPriceCode()) {
          case Movie.REGULAR:
             thisAmount += 2;
@@ -32,6 +35,16 @@ public class Rental {
                thisAmount += (getDaysRented() - 3) * 1.5;
             break;
       }
+
       return thisAmount;
+   }
+
+   public int getFrequentRenterPoints() {
+      // Adiciona bônus para filmes NEW_RELEASE
+      if ((getMovie().getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1) {
+          return 2;  // Bônus
+      } else {
+          return 1;  // Sem bônus
+      }
    }
 }

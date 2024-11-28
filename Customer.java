@@ -22,27 +22,20 @@ public class Customer {
       int frequentRenterPoints = 0;
       Enumeration rentals = _rentals.elements();
       String result = "Rental Record for " + getName() + "\n";
-      
       while (rentals.hasMoreElements()) {
          Rental each = (Rental) rentals.nextElement();
-   
-         // Add frequent renter points
-         frequentRenterPoints++;
-   
-         // Add bonus for a two-day new release rental
-         if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) {
-            frequentRenterPoints++;
-         }
-   
-         // Show figures for this rental
+
+         // Adiciona pontos de aluguel frequente
+         frequentRenterPoints += each.getFrequentRenterPoints();
+
+         // Mostra valores para o aluguel
          result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
-         totalAmount += each.getCharge(); // Directly use getCharge() instead of thisAmount
+         totalAmount += each.getCharge();
       }
-      
-      // Add footer lines
+
+      // Adiciona linhas de rodapé
       result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
       result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
-      
       return result;
    }
-}   
+}
