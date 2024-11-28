@@ -1,70 +1,49 @@
 import java.util.Enumeration;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Customer {
-    private String _name;
-    private Vector _rentals = new Vector();
+   private String _name;
+   private List<Rental> _rentals = new ArrayList<>(); // Usando ArrayList como implementação de List
 
-    public Customer(String name) {
-        _name = name;
-    }
+   public Customer(String name) {
+       _name = name;
+   }
 
-    public void addRental(Rental arg) {
-        _rentals.addElement(arg);
-    }
+   public void addRental(Rental arg) {
+       _rentals.add(arg); // Agora usando List
+   }
 
-    public String getName() {
-        return _name;
-    }
+   public String getName() {
+       return _name;
+   }
 
-    public String statement() {
-        Enumeration rentals = _rentals.elements();
-        String result = "Rental Record for " + getName() + "\n";
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += "\t" + each.getMovie().getTitle() + "\t" +
-                    String.valueOf(each.getCharge()) + "\n";
-        }
+   public List<Rental> getRentals() {
+       return _rentals; // Retornando a lista diretamente
+   }
 
-        result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
-        result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) +
-                " frequent renter points";
-        return result;
-    }
+   public double getTotalCharge() {
+       double result = 0;
+       for (Rental each : _rentals) {
+           result += each.getCharge(); // Usando for-each para acessar os elementos
+       }
+       return result;
+   }
 
-    private double getTotalCharge() {
-        double result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getCharge();
-        }
-        return result;
-    }
+   public int getTotalFrequentRenterPoints() {
+       int result = 0;
+       for (Rental each : _rentals) {
+           result += each.getFrequentRenterPoints(); // Usando for-each para acessar os elementos
+       }
+       return result;
+   }
 
-    private int getTotalFrequentRenterPoints() {
-        int result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getFrequentRenterPoints();
-        }
-        return result;
-    }
+   public String statement() {
+       return new TextStatement().value(this);
+   }
 
-    public String htmlStatement() {
-        Enumeration rentals = _rentals.elements();
-        String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
-        while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            result += each.getMovie().getTitle() + ": " +
-                    String.valueOf(each.getCharge()) + "<BR>\n";
-        }
-
-        result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
-        result += "On this rental you earned <EM>" +
-                String.valueOf(getTotalFrequentRenterPoints()) +
-                "</EM> frequent renter points<P>";
-        return result;
-    }
+   public String htmlStatement() {
+       return new HtmlStatement().value(this);
+   }
 }
+
