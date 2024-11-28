@@ -1,20 +1,25 @@
-import java.util.List;
+public class TextStatement extends Statement {
 
-public class TextStatement {
-
-    public String value(Customer aCustomer) {
-        List<Rental> rentals = aCustomer.getRentals(); // Obtenção da lista de locações
-        String result = "Rental Record for " + aCustomer.getName() + "\n";
-        
-        for (Rental each : rentals) { // Usando for-each para iterar sobre a lista
-            result += "\t" + each.getMovie().getTitle() + "\t" +
-                    String.valueOf(each.getCharge()) + "\n";
-        }
-
-        result += "Amount owed is " + String.valueOf(aCustomer.getTotalCharge()) + "\n";
-        result += "You earned " + String.valueOf(aCustomer.getTotalFrequentRenterPoints()) +
-                " frequent renter points";
-
-        return result;
+    @Override
+    protected String header(Customer aCustomer) {
+       return "Rental Record for " + aCustomer.getName() + "\n";
     }
-}
+ 
+    @Override
+    protected String body(Customer aCustomer) {
+       StringBuilder result = new StringBuilder();
+       for (Rental each : aCustomer.getRentals()) {
+          result.append("\t").append(each.getMovie().getTitle()).append("\t")
+                .append(String.valueOf(each.getCharge())).append("\n");
+       }
+       return result.toString();
+    }
+ 
+    @Override
+    protected String footer(Customer aCustomer) {
+       String result = "Amount owed is " + aCustomer.getTotalCharge() + "\n";
+       result += "You earned " + aCustomer.getTotalFrequentRenterPoints() + " frequent renter points";
+       return result;
+    }
+ }
+ 
