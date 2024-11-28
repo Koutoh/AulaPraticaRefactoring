@@ -1,4 +1,5 @@
 public abstract class Statement {
+
     public String value(Customer aCustomer) {
        String result = header(aCustomer);
        result += body(aCustomer);
