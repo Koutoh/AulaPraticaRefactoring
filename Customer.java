@@ -52,4 +52,21 @@ public class Customer {
       }
       return result;
    }
+
+   // Nova feature: Generating HTML statement
+   public String htmlStatement() {
+      Enumeration rentals = _rentals.elements();
+      String result = "<H1>Rentals for <EM>" + getName() + "</EM></H1><P>\n";
+      while (rentals.hasMoreElements()) {
+         Rental each = (Rental) rentals.nextElement();
+         // Exibe os valores para o aluguel em HTML
+         result += each.getMovie().getTitle() + ": " + String.valueOf(each.getCharge()) + "<BR>\n";
+      }
+      
+      // Adiciona as linhas de rodapé em HTML
+      result += "<P>You owe <EM>" + String.valueOf(getTotalCharge()) + "</EM><P>\n";
+      result += "On this rental you earned <EM>" + String.valueOf(getTotalFrequentRenterPoints()) +
+                "</EM> frequent renter points<P>";
+      return result;
+   }
 }
