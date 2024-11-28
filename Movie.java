@@ -1,13 +1,13 @@
 public class Movie {
-    public static final int REGULAR = 0;
-    public static final int NEW_RELEASE = 1;
-    public static final int CHILDRENS = 2;
- 
     private String _title;
     private Price _price;
  
-    public Movie(String title, int priceCode) {
-       _title = title;
+    public static final int REGULAR = 0;
+    public static final int CHILDRENS = 1;
+    public static final int NEW_RELEASE = 2;
+ 
+    public Movie(String name, int priceCode) {
+       _title = name;
        setPriceCode(priceCode);
     }
  
@@ -15,8 +15,12 @@ public class Movie {
        return _title;
     }
  
-    public int getPriceCode() {
-       return _price.getPriceCode();
+    public double getCharge(int daysRented) {
+       return _price.getCharge(daysRented); // Chama o método de Price
+    }
+ 
+    public int getFrequentRenterPoints(int daysRented) {
+       return _price.getFrequentRenterPoints(daysRented);
     }
  
     public void setPriceCode(int arg) {
@@ -35,32 +39,8 @@ public class Movie {
        }
     }
  
-    public double getCharge(int daysRented) {
-       double result = 0;
-       switch (getPriceCode()) {
-          case REGULAR:
-             result += 2;
-             if (daysRented > 2)
-                result += (daysRented - 2) * 1.5;
-             break;
-          case NEW_RELEASE:
-             result += daysRented * 3;
-             break;
-          case CHILDRENS:
-             result += 1.5;
-             if (daysRented > 3)
-                result += (daysRented - 3) * 1.5;
-             break;
-       }
-       return result;
-    }
- 
-    public int getFrequentRenterPoints(int daysRented) {
-       int result = 1;
-       // Add bonus for a two-day new release rental
-       if ((getPriceCode() == NEW_RELEASE) && daysRented > 1)
-          result++;
-       return result;
+    public int getPriceCode() {
+       return _price.getPriceCode();
     }
  }
  
