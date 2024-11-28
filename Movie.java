@@ -40,6 +40,6 @@ public class Movie {
     }
 
     public int getFrequentRenterPoints(int daysRented) {
-        return _price.getFrequentRenterPoints(daysRented);
+        return _price.getFrequentRenterPoints(daysRented);  // Delegação para a classe Price
     }
 }
